@@ -1,4 +1,4 @@
-@CleanGo.API_HostAddress = http://localhost:5237
+@CleanGo.API_HostAddress = http://localhost:5033
 
 GET {{CleanGo.API_HostAddress}}/weatherforecast/
 Accept: application/json
