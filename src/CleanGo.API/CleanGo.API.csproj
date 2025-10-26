@@ -12,7 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CleanGo.Application\CleanGo.Application.csproj" />
-    <ProjectReference Include="..\CleanGo.Domain\CleanGo.Domain.csproj" />
+    <ProjectReference Include="..\CleanGo.Infrastructure\CleanGo.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>
