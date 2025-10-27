@@ -28,4 +28,4 @@ jobs:
       run: dotnet build CleanGo.sln --no-restore --configuration Release  # Build the solution
 
     - name: Run tests
-      run: dotnet test CleanGo.sln --no-build --verbosity normal  # Run all unit and integration tests
+      run: dotnet test CleanGo.sln --verbosity normal  # Run all unit and integration tests
