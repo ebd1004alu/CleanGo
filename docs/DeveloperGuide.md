@@ -55,10 +55,15 @@ Update-Database -Project CleanGo.Infrastructure -StartupProject CleanGo.API
 ```
 
 ## Docker
-### PostgreSQL is run in a container for easy setup.
-### API currently runs locally connecting to Docker container.
+#### PostgreSQL is run in a container for easy setup.
+#### API currently runs locally connecting to Docker container.
 
 ## Git Workflow
-### Branch naming: feature/#-Description
-### Commits: short title + detailed description
-### Pull requests: link to issue using Closes #X
+#### Branch naming: feature/#-Description
+#### Commits: short title + detailed description
+#### Pull requests: link to issue using Closes #X
+
+## GitHub Actions CI/CD
+#### The project uses GitHub Actions for continuous integration. 
+#### - Workflow file: `.github/workflows/ci.yml`
+#### - Automatically builds the solution and runs tests on push and pull request to `main` and `develop`.

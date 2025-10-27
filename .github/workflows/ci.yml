@@ -1,0 +1,31 @@
+# Pipeline name
+name: CleanGo CI
+
+# Events that trigger the workflow
+on:
+  push:
+    branches: [ main, develop ]  # Trigger on push to main or develop branches
+  pull_request:
+    branches: [ main, develop ]  # Trigger on pull requests targeting main or develop
+
+jobs:
+  build:
+    runs-on: ubuntu-latest  # Use an Ubuntu runner
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3  # Clone the repository onto the runner
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: '9.0.x'  # Install .NET 9 SDK on the runner
+
+    - name: Restore dependencies
+      run: dotnet restore CleanGo.sln  # Restore NuGet packages
+
+    - name: Build solution
+      run: dotnet build CleanGo.sln --no-restore --configuration Release  # Build the solution
+
+    - name: Run tests
+      run: dotnet test CleanGo.sln --verbosity normal  # Run all unit and integration tests
