@@ -10,7 +10,8 @@ namespace CleanGo.Infrastructure
         { }
 
         public DbSet<User> Users { get; set; }
-        public DbSet<Booking> Bookings { get; set; }
-
+        public DbSet<Booking> Bookings { get; set; }      
+        public DbSet<Cleaner> Cleaners { get; set; }
+        public DbSet<Service> Services { get; set; }
     }
 }
