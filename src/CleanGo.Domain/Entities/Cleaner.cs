@@ -17,9 +17,9 @@
 
         private Cleaner() { } // EF Core
 
-        public Cleaner(Guid id, string firstName, string lastName, string phoneNumber, string email, string address, string passwordHash, DateTime dateOfBirth, DateTime hireDate, decimal salary, DateTime createdAt)
+        public Cleaner(string firstName, string lastName, string phoneNumber, string email, string address, string passwordHash, DateTime dateOfBirth, DateTime hireDate, decimal salary, DateTime createdAt)
         {
-            Id = id;
+            Id = Guid.NewGuid();
             FirstName = firstName;
             LastName = lastName;
             PhoneNumber = phoneNumber;
