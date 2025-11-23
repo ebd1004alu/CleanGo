@@ -1,6 +1,7 @@
 using CleanGo.Application.Interfaces;
 using CleanGo.Application.Interfaces.Security;
 using CleanGo.Application.Interfaces.Services;
+using CleanGo.Application.Mapping;
 using CleanGo.Application.Services.Bookings;
 using CleanGo.Application.Services.Cleaners;
 using CleanGo.Application.Services.Services;
@@ -20,7 +21,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-// Dependency Injection for Repositories.
+// Dependency Injection.
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<ICleanerRepository, CleanerRepository>();
 builder.Services.AddScoped<IBookingRepository, BookingRepository>();
@@ -30,6 +31,7 @@ builder.Services.AddScoped<IBookingService, BookingService>();
 builder.Services.AddScoped<ICleanerService, CleanerService>();
 builder.Services.AddScoped<IServiceService, ServiceService>();
 builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
+builder.Services.AddAutoMapper(typeof(AppMappingProfile));
 
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
