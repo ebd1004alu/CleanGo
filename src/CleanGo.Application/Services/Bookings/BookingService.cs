@@ -22,7 +22,6 @@ namespace CleanGo.Application.Services.Bookings
             // Map CreateBookingDto to Booking entity.
             var booking = _mapper.Map<Booking>(createBookingDto);
             booking.Id = Guid.NewGuid();
-            booking.BookingDate = DateTime.UtcNow;
 
             // Save the booking using the repository.
             await _bookingRepository.AddAsync(booking);
