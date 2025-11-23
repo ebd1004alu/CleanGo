@@ -1,4 +1,5 @@
-﻿using CleanGo.Application.DTOs.Cleaners;
+﻿using AutoMapper;
+using CleanGo.Application.DTOs.Cleaners;
 using CleanGo.Application.Interfaces;
 using CleanGo.Application.Interfaces.Security;
 using CleanGo.Application.Interfaces.Services;
@@ -10,41 +11,28 @@ namespace CleanGo.Application.Services.Cleaners
     {
         private readonly ICleanerRepository _cleanerRepository;
         private readonly IPasswordHasher _passwordHasher;
+        private readonly IMapper _mapper;
 
-        public CleanerService(ICleanerRepository cleanerRepository, IPasswordHasher passwordHasher)
+        public CleanerService(ICleanerRepository cleanerRepository, IPasswordHasher passwordHasher, IMapper mapper)
         {
             _cleanerRepository = cleanerRepository;
             _passwordHasher = passwordHasher;
+            _mapper = mapper;
         }
 
         public async Task<CleanerDto> CreateCleanerAsync(CreateCleanerDto createCleanerDto)
         {
             // Map CreateCleanerDto to Cleaner entity.
-            var cleaner = new Cleaner
-            (
-                createCleanerDto.FirstName,
-                createCleanerDto.LastName,
-                createCleanerDto.PhoneNumber,
-                createCleanerDto.Email,
-                createCleanerDto.Address,
-                _passwordHasher.HashPassword(createCleanerDto.Password),
-                DateTime.SpecifyKind(createCleanerDto.DateOfBirth, DateTimeKind.Utc),
-                DateTime.SpecifyKind(createCleanerDto.HireDate, DateTimeKind.Utc),
-                createCleanerDto.Salary,
-                DateTime.UtcNow
-            );
+            var cleaner = _mapper.Map<Cleaner>(createCleanerDto);
+            cleaner.Id = Guid.NewGuid();
+            cleaner.PasswordHash = _passwordHasher.HashPassword(createCleanerDto.Password);
+            cleaner.CreatedAt = DateTime.UtcNow;
 
             // Save the cleaner using the repository.
             await _cleanerRepository.AddAsync(cleaner);
 
             // Map Cleaner entity to CleanerDto.
-            return new CleanerDto
-            {
-                Id = cleaner.Id,
-                FirstName = cleaner.FirstName,
-                LastName = cleaner.LastName,
-                Email = cleaner.Email,
-            };
+            return _mapper.Map<CleanerDto>(cleaner);
         }
 
         public async Task<List<CleanerDto>> GetAllCleanersAsync()
@@ -52,13 +40,7 @@ namespace CleanGo.Application.Services.Cleaners
             var cleaners = await _cleanerRepository.GetAllAsync();
 
             // Map Cleaner entities to CleanerDto.
-            return cleaners.Select(cleaner => new CleanerDto
-                {
-                    Id = cleaner.Id,
-                    FirstName = cleaner.FirstName,
-                    LastName = cleaner.LastName,
-                    Email = cleaner.Email,                   
-                }).ToList();
+            return _mapper.Map<List<CleanerDto>>(cleaners);
         }
     }
 }
